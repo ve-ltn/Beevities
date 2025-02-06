@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $fillable =[
         'invoice_number',
         'user_id',
         'address',
@@ -22,7 +22,6 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
-    // 🔹 Tambahkan relasi ke InvoiceDetail
     public function details()
     {
         return $this->hasMany(InvoiceDetail::class, 'invoice_id');

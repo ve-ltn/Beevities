@@ -15,7 +15,7 @@ class CheckoutController extends Controller
     public function checkout(Request $request)
     {
         $selectedProducts = $request->input('selected_products', []);
-        if (empty($selectedProducts)){
+        if(empty($selectedProducts)){
             return redirect()->route('user.cart')->with('error', 'Silakan pilih produk untuk checkout.');}
     
         $cartItems = Cart::whereIn('id', $selectedProducts)->where('user_id', Auth::id())
@@ -27,7 +27,7 @@ class CheckoutController extends Controller
         }
     
         $checkoutItems =$cartItems->map(function($item){
-            return [
+            return[
                 'id' => $item->id,
                 'name' => $item->product->name ?? 'Produk tidak ditemukan',
                 'price' => $item->product->price ?? 0,
@@ -35,7 +35,7 @@ class CheckoutController extends Controller
             ];
         });
     
-        $totalPrice = $checkoutItems->sum(function ($item) {
+        $totalPrice = $checkoutItems->sum(function ($item){
             return $item['price'] * $item['quantity'];
         });
 
@@ -46,8 +46,7 @@ class CheckoutController extends Controller
         return redirect()->route('user.checkout.view');
     }
 
-    public function viewCheckout(Request $request)
-    {
+    public function viewCheckout(Request $request){
         $checkoutItems = session('checkoutItems', []);
         $totalPrice = session('totalPrice', 0);
 
@@ -58,14 +57,13 @@ class CheckoutController extends Controller
         return view('user.checkout', compact('checkoutItems', 'totalPrice'));
     }
 
-    public function processCheckout(Request $request)
-    {
+    public function processCheckout(Request $request){
         $request->validate([
             'address' => 'required|min:10|max:100',
             'postal_code' => 'required|digits:5',
             'selected_products' => 'required|array',
             'total_price' => 'required|integer|min:1',
-        ], [
+        ],[
             'selected_products.required' => 'Anda harus memilih setidaknya satu produk untuk checkout.',
         ]);
 
@@ -83,12 +81,12 @@ class CheckoutController extends Controller
         foreach ($selectedProducts as $cartId => $quantity) {
             $cartItem = Cart::where('id', $cartId)->where('user_id', Auth::id())->with('product')->first();
 
-            if (!$cartItem) {
+            if(!$cartItem){
                 return redirect()->route('user.cart')->with('error', 'Keranjang tidak valid.');
             }
 
             $product = $cartItem->product;
-            if ($product->stock < $quantity) {
+            if($product->stock < $quantity){
                 return redirect()->route('user.cart')->with('error', "Stok produk {$product->name} tidak mencukupi.");
             }
 
@@ -105,20 +103,17 @@ class CheckoutController extends Controller
         return redirect()->route('user.invoice', $invoice->id)->with('success', 'Checkout berhasil! Berikut faktur pembelian Anda.');
     }
 
-    public function invoice($id)
-    {
+    public function invoice($id){
         $invoice = Invoice::with('details.product')->where('user_id', Auth::id())->findOrFail($id);
         return view('user.invoice', compact('invoice'));
     }
 
 
     //ni harusny bukan punye checkout tpi malas buat file baru
-    public function history()
-    {
+    public function history(){
         $invoices = Invoice::with('details.product')->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get();
-
         return view('user.history', compact('invoices'));
     }
 

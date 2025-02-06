@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Product extends Model
 {
@@ -12,6 +14,15 @@ class Product extends Model
     protected $fillable = [
         'category_id', 'name', 'price', 'stock', 'image'
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($product) {
+            if ($product->image && Storage::exists('public/' . $product->image)) {
+                Storage::delete('public/' . $product->image);
+            }
+        });
+    } 
 
     public function category()
     {

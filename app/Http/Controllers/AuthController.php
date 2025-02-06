@@ -9,15 +9,11 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // Menampilkan halaman login
-    public function loginForm()
-    {
+    public function loginForm(){
         return view('auth.login');
     }
 
-    // Proses Login
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6|max:12',
@@ -26,9 +22,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if (Auth::user()->isAdmin()) {
+            if(Auth::user()->isAdmin()){
                 return redirect()->route('admin.dashboard');
-            } else {
+            } 
+            
+            else{
                 return redirect()->route('user.dashboard');
             }
         }
@@ -57,15 +55,13 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'number' => $request->number,
-            'role' => 0, // Default: User biasa
+            'role' => 0, 
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    // Logout
-    public function logout(Request $request)
-    {
+    public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

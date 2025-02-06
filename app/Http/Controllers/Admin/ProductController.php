@@ -9,23 +9,18 @@ use App\Models\Category;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $products = Product::with('category')->get();
-        $total_products = Product::count(); // Hitung jumlah produk
-        // $total_users = User::count();
-
+        $total_products = Product::count();
         return view('admin.products.index', compact('products', 'total_products'));
     }
 
-    public function create()
-    {
+    public function create(){
         $categories = Category::all();
         return view('admin.products.create', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'name' => 'required|min:5|max:80',
             'price' => 'required|integer',
@@ -34,9 +29,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        // Upload gambar jika ada
         $imagePath = $request->hasFile('image') ? $request->file('image')->store('products', 'public') : null;
-
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
@@ -48,15 +41,13 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $product = Product::findOrFail($id);
         $categories = Category::all();
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $request->validate([
             'name' => 'required|min:5|max:80',
             'price' => 'required|integer',
@@ -67,9 +58,10 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')){
             $imagePath = $request->file('image')->store('products', 'public');
-        } else {
+        } 
+        else{
             $imagePath = $product->image;
         }
 
@@ -84,9 +76,9 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         Product::findOrFail($id)->delete();
+
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');
     }
 }
