@@ -11,10 +11,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->string('name', 80); // Nama Barang
-            $table->integer('price'); // Harga Barang
-            $table->integer('stock'); // Jumlah Barang
-            $table->string('image')->nullable(); // Foto Barang
+            $table->string('name', 80);
+            $table->integer('price'); 
+            $table->integer('stock'); 
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

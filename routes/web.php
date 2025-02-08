@@ -19,12 +19,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::prefix('/admin/products')->name('admin.products.')->group(function () {
-        Route::get('/', [AdminProductController::class, 'index'])->name('index'); // List Produk
-        Route::get('/create', [AdminProductController::class, 'create'])->name('create'); // Form Tambah
-        Route::post('/store', [AdminProductController::class, 'store'])->name('store'); // Simpan Data
-        Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('edit'); // Form Edit
-        Route::post('/update/{id}', [AdminProductController::class, 'update'])->name('update'); // Update Data
-        Route::delete('/delete/{id}', [AdminProductController::class, 'destroy'])->name('destroy'); // Hapus Data
+        Route::get('/', [AdminProductController::class, 'index'])->name('index');
+        Route::get('/create', [AdminProductController::class, 'create'])->name('create');
+        Route::post('/store', [AdminProductController::class, 'store'])->name('store'); 
+        Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('edit'); 
+        Route::post('/update/{id}', [AdminProductController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [AdminProductController::class, 'destroy'])->name('destroy'); 
     });
 });
 

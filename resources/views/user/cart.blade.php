@@ -10,7 +10,7 @@
         <div class="alert alert-warning">Keranjang Anda kosong. <a href="{{ route('user.catalog') }}">Lihat Produk</a></div>
     @else
     <form method="POST" action="{{ route('user.checkout') }}" id="checkout-form">
-    @csrf <!-- CSRF Token -->
+    @csrf 
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
