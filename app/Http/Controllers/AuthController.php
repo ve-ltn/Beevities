@@ -45,9 +45,22 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3|max:40',
-            'email' => 'required|email|ends_with:@gmail.com|unique:users,email',
-            'password' => 'required|min:6|max:12|confirmed',
-            'number' => 'required|string|regex:/^08[0-9]{8,11}$/',
+            'email' => 'required|email|regex:/@gmail\.com$/|unique:users,email',
+            'password' => 'required|confirmed|min:6|max:12',
+            'number' => 'required|regex:/^08\d{8,13}$/',
+        ], [
+            'name.required' => 'Nama harus diisi.',
+            'name.min' => 'Nama minimal 3 karakter.',
+            'name.max' => 'Nama maksimal 40 karakter.',
+            'email.required' => 'Email harus diisi.',
+            'email.regex' => 'Email harus menggunakan domain @gmail.com.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password harus diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'password.min' => 'Password minimal 6 karakter.',
+            'password.max' => 'Password maksimal 12 karakter.',
+            'number.required' => 'Nomor HP harus diisi.',
+            'number.regex' => 'Nomor HP harus diawali dengan 08.',
         ]);
 
         User::create([
@@ -55,7 +68,6 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'number' => $request->number,
-            'role' => 0, 
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
