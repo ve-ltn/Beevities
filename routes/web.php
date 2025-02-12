@@ -6,6 +6,7 @@ use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/', [AuthController::class, 'login']);
@@ -25,6 +26,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('edit'); 
         Route::post('/update/{id}', [AdminProductController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [AdminProductController::class, 'destroy'])->name('destroy'); 
+    });
+
+    Route::prefix('/admin/categories')->name('admin.category.')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index'); 
+        Route::get('/create', [CategoryController::class, 'create'])->name('create'); 
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit'); 
+        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('update'); 
+        Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('destroy'); 
     });
 });
 

@@ -50,7 +50,6 @@
 
 @section('styles')
 <style>
-    /* Gaya untuk tampilan cetak */
     @media print {
         body {
             font-family: Arial, sans-serif;
@@ -90,7 +89,6 @@
         }
     }
 
-    /* Gaya untuk tampilan layar */
     #invoice {
         background-color: #fff;
         padding: 20px;

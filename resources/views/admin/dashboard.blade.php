@@ -4,6 +4,7 @@
 
 @section('content')
     <h1 class="mb-4">Dashboard Admin</h1>
+
     <div class="row">
         <div class="col-md-4">
             <div class="card text-bg-primary mb-3">
@@ -21,5 +22,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ route('admin.products.index') }}" class="btn btn-primary me-2">Kelola Produk</a>
+        <a href="{{ route('admin.category.index') }}" class="btn btn-secondary">Kelola Kategori</a>
     </div>
 @endsection
