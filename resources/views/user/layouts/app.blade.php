@@ -109,7 +109,7 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-primary text-white" href="{{ route('user.cart') }}">
                                 Cart <span class="badge bg-light text-dark" id="cart-count">
-                                    {{ session('cart') ? count(session('cart')) : 0 }}
+                                    {{ \App\Models\Cart::where('user_id', Auth::id())->count() }}
                                 </span>
                             </a>
                         </li>
