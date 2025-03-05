@@ -9,13 +9,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 40);
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('number');
-            $table->tinyInteger('role')->default(0); //ketik 1 buat atmin
+            $table->string('number')->nullable();
+            $table->integer('role')->default(0);
             $table->timestamps();
-        });
+        });        
     }
 
     public function down()

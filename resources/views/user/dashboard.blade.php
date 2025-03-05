@@ -5,17 +5,17 @@
 @section('content')
 <div class="container mt-5">
     <div class="text-center">
-        <h1 class="display-4">Selamat Datang di Toko Kami!</h1>
-        <p class="lead">Toko {{ config('app.name', 'Toko Online') }} menyediakan berbagai macam barang berkualitas dengan harga terjangkau.</p>
+        <h1 class="display-4">Selamat Datang di Platform Kami!</h1>
+        <p class="lead">Jelajahi organisasi, event, artikel, dan merchandise yang tersedia.</p>
     </div>
 
     <div class="row mt-5">
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Jelajahi Produk</h5>
-                    <p class="card-text">Lihat katalog produk kami dan temukan barang yang Anda butuhkan.</p>
-                    <a href="{{ route('user.catalog') }}" class="btn btn-primary">Katalog Produk</a>
+                    <h5 class="card-title">Jelajahi Organisasi</h5>
+                    <p class="card-text">Lihat daftar organisasi dan cari tahu kegiatan mereka.</p>
+                    <a href="{{ route('organizations.index') }}" class="btn btn-primary">Lihat Organisasi</a>
                 </div>
             </div>
         </div>
@@ -31,10 +31,10 @@
     </div>
 
     <div class="mt-5 text-center">
-        <h3 class="mb-3">Tentang Toko Kami</h3>
+        <h3 class="mb-3">Tentang Platform Kami</h3>
         <p class="text-muted">
-            Kami adalah toko online yang berkomitmen untuk memberikan pelayanan terbaik kepada pelanggan kami. 
-            Dengan berbagai pilihan produk dan harga yang kompetitif, kami berharap dapat memenuhi kebutuhan Anda.
+            Kami menyediakan informasi tentang berbagai organisasi, event, dan artikel,
+            serta penjualan merchandise eksklusif dari masing-masing organisasi.
         </p>
     </div>
 </div>

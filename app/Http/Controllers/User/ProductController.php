@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category; 
 
+
 class ProductController extends Controller
 {
-    public function catalog(Request $request){
-        $products = Product::with('category')->get(); 
-        $categories = Category::all(); 
-
-        return view('user.catalog', compact('products', 'categories'));
+    public function catalog($organizationId)
+    {
+        $organization = Organization::findOrFail($organizationId);
+        return view('user.merchandise.catalog', [
+            'organization' => $organization,
+            'products' => $organization->products()->with('category')->get(),
+            'categories' => Category::all()
+        ]);
     }
 
     public function filterByCategory(Request $request){

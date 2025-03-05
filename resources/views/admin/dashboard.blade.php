@@ -26,6 +26,9 @@
 
     <div class="mt-4">
         <a href="{{ route('admin.products.index') }}" class="btn btn-primary me-2">Kelola Produk</a>
-        <a href="{{ route('admin.category.index') }}" class="btn btn-secondary">Kelola Kategori</a>
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Kelola Kategori</a>
+        <a href="{{ route('admin.organizations.index') }}" class="btn btn-info">Kelola Organisasi</a>
+        <a href="{{ route('admin.events.index') }}" class="btn btn-warning">Kelola Event</a>
+        <a href="{{ route('admin.articles.index') }}" class="btn btn-danger">Kelola Artikel</a>
     </div>
 @endsection

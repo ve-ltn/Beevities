@@ -5,7 +5,7 @@
 @section('content')
     <h2>Tambah Kategori</h2>
 
-    <form action="{{ route('admin.category.store') }}" method="POST">
+    <form action="{{ route('admin.categories.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Nama Kategori</label>
@@ -16,6 +16,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('admin.category.index') }}" class="btn btn-secondary">Batal</a>
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Batal</a>
     </form>
+
 @endsection

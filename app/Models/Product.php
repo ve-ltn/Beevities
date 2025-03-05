@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'category_id', 'name', 'price', 'stock', 'image'
-    ];
+    protected $fillable = ['organization_id', 'category_id', 'name', 'price', 'stock', 'image'];
 
     protected static function booted()
     {
@@ -22,7 +19,12 @@ class Product extends Model
                 Storage::delete('public/' . $product->image);
             }
         });
-    } 
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 
     public function category()
     {
@@ -33,5 +35,4 @@ class Product extends Model
     {
         return $this->hasMany(InvoiceDetail::class, 'product_id');
     }
-
 }

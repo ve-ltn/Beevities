@@ -9,7 +9,7 @@
     @if($invoices->isEmpty())
         <div class="alert alert-warning">
             Anda belum melakukan pembelian. 
-            <a href="{{ route('user.catalog') }}">Belanja sekarang</a>.
+            <a href="{{ route('user.dashboard') }}">Go Back To Home Page</a>.
         </div>
     @else
         @foreach($invoices as $invoice)

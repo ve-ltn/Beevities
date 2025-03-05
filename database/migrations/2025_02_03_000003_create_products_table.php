@@ -10,13 +10,17 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->string('name', 80);
-            $table->integer('price'); 
-            $table->integer('stock'); 
+            $table->unsignedBigInteger('organization_id'); // Ensure this exists
+            $table->unsignedBigInteger('category_id');
+            $table->string('name');
+            $table->integer('price');
+            $table->integer('stock');
             $table->string('image')->nullable();
             $table->timestamps();
-        });
+        
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+        });        
     }
 
     public function down()

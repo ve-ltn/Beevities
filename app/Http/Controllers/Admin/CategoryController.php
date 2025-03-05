@@ -11,12 +11,12 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.category.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {   
-        return view('admin.category.create');
+        return view('admin.categories.create');
     }
 
     public function store(Request $request)
@@ -29,13 +29,13 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('admin.category.index')->with('success', 'Kategori baru ditambahkan');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori baru ditambahkan');
     }
 
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.category.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
@@ -49,12 +49,12 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('admin.category.index')->with('success', 'Kategori telah diupdate');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori telah diupdate');
     }
 
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
-        return redirect()->route('admin.category.index')->with('success', 'Kategori berhasil dihapus');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus');
     }
 }
