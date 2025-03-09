@@ -22,8 +22,14 @@ class User extends Authenticatable
         'email',
         'password',
         'number',
-        'role'
+        'role',
+        'organization_id'
     ];
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 
     public function invoices()
     {

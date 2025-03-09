@@ -13,6 +13,12 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Organization_Admin\DashboardController;
+use App\Http\Controllers\Organization_Admin\OrganizationAdminController;
+use App\Http\Controllers\Organization_Admin\ProductController as OrgProductController;
+use App\Http\Controllers\Organization_Admin\EventController as OrgEventController;
+use App\Http\Controllers\Organization_Admin\ArticleController as OrgArticleController;
+use App\Http\Controllers\Organization_Admin\OrganizationInvoiceController;
 
 // Authentication Routes
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -99,4 +105,37 @@ Route::middleware(['auth', 'user'])->group(function () {
     
     Route::get('/user/invoice/{id}', [CheckoutController::class, 'invoice'])->name('user.invoice');
     Route::get('/user/history', [CheckoutController::class, 'history'])->name('user.history');
+});
+
+
+Route::middleware(['auth', 'organization_admin'])->group(function () {
+    Route::get('/organization_admin/dashboard', [OrganizationAdminController::class, 'dashboard'])
+        ->name('organization_admin.dashboard');
+    // Products
+    Route::get('/organization/products', [OrgProductController::class, 'index'])->name('organization_admin.products.index');
+    Route::get('/organization/products/create', [OrgProductController::class, 'create'])->name('organization_admin.products.create');
+    Route::post('/organization/products', [OrgProductController::class, 'store'])->name('organization_admin.products.store');
+    Route::get('/organization/products/{id}/edit', [OrgProductController::class, 'edit'])->name('organization_admin.products.edit');
+    Route::put('/organization/products/{id}', [OrgProductController::class, 'update'])->name('organization_admin.products.update');
+    Route::delete('/organization/products/{id}', [OrgProductController::class, 'destroy'])->name('organization_admin.products.destroy');
+
+    // Events
+    Route::get('/organization/events', [OrgEventController::class, 'index'])->name('organization_admin.events.index');
+    Route::get('/organization/events/create', [OrgEventController::class, 'create'])->name('organization_admin.events.create');
+    Route::post('/organization/events', [OrgEventController::class, 'store'])->name('organization_admin.events.store');
+    Route::get('/organization/events/{id}/edit', [OrgEventController::class, 'edit'])->name('organization_admin.events.edit');
+    Route::put('/organization/events/{id}', [OrgEventController::class, 'update'])->name('organization_admin.events.update');
+    Route::delete('/organization/events/{id}', [OrgEventController::class, 'destroy'])->name('organization_admin.events.destroy');
+
+    // Articles
+    Route::get('/organization/articles', [OrgArticleController::class, 'index'])->name('organization_admin.articles.index');
+    Route::get('/organization/articles/create', [OrgArticleController::class, 'create'])->name('organization_admin.articles.create');
+    Route::post('/organization/articles', [OrgArticleController::class, 'store'])->name('organization_admin.articles.store');
+    Route::get('/organization/articles/{id}/edit', [OrgArticleController::class, 'edit'])->name('organization_admin.articles.edit');
+    Route::put('/organization/articles/{id}', [OrgArticleController::class, 'update'])->name('organization_admin.articles.update');
+    Route::delete('/organization/articles/{id}', [OrgArticleController::class, 'destroy'])->name('organization_admin.articles.destroy');
+
+    // Invoices
+    Route::get('/organization/invoices', [OrganizationInvoiceController::class, 'index'])->name('organization_admin.invoices.index');
+    Route::get('/organization/invoices/{id}', [OrganizationInvoiceController::class, 'show'])->name('organization_admin.invoices.show');
 });

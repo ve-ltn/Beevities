@@ -13,10 +13,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('number')->nullable();
-            $table->integer('role')->default(0);
+            $table->integer('role')->default(0); // 0 = User, 1 = Admin, 2 = Organization Admin
+            $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('cascade');
             $table->timestamps();
         });        
     }
+    
 
     public function down()
     {

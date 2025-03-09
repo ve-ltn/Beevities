@@ -9,12 +9,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UserSeeder::class,
-            OrganizationSeeder::class,
-            CategorySeeder::class, // ✅ Make sure this runs before ProductSeeder
-            EventSeeder::class,
-            ArticleSeeder::class,
-            ProductSeeder::class,  // ✅ Runs after CategorySeeder
+            OrganizationSeeder::class, // ✅ Organizations first
+            CategorySeeder::class,     // ✅ Categories before products
+            UserSeeder::class,         // ✅ Users (after organization exists)
+            ProductSeeder::class,      // ✅ Products (after categories exist)
+            EventSeeder::class,        // ✅ Events (after organizations exist)
+            ArticleSeeder::class,      // ✅ Articles (after organizations exist)
         ]);
     }
 }
