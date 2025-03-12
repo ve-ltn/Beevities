@@ -10,17 +10,17 @@
         @method('PUT')
         
         <div class="mb-3">
-            <label class="form-label fw-bold">Judul Artikel</label>
+            <label class="m-1 text-secondary form-label fw-bold">Judul Artikel</label>
             <input type="text" name="title" class="form-control" value="{{ $article->title }}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label fw-bold">Deskripsi</label>
+            <label class="m-1 text-secondary form-label fw-bold">Deskripsi</label>
             <textarea name="description" class="form-control" rows="4" required>{{ $article->description }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label fw-bold">Gambar Artikel</label>
+            <label class="m-1 text-secondary form-label fw-bold">Gambar Artikel</label>
             @if($article->image)
                 <div class="mb-2">
                     <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" width="150" class="rounded shadow">

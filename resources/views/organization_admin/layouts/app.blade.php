@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
         body {
@@ -96,8 +97,8 @@
 
     <!-- Main Content -->
     <div class="container mt-4">
-        <h2>Welcome, {{ Auth::user()->name }}!</h2>
-        <p>Anda telah login sebagai admin organisasi: <strong>{{ Auth::user()->organization->name ?? 'Tanpa Organisasi' }}</strong></p>
+        <h2 class="m-4 fw-bold">Welcome, {{ Auth::user()->name }}!</h2>
+        <p class="m-4 fw-bold">Anda telah login sebagai admin organisasi: <strong>{{ Auth::user()->organization->name ?? 'Tanpa Organisasi' }}</strong></p>
         @yield("content")
     </div>
 

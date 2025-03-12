@@ -4,8 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="fw-bold text-center">Welcome, {{ Auth::user()->name }}!</h2>
-    <p class="text-center">Anda telah login sebagai admin organisasi: <strong>{{ Auth::user()->organization->name ?? 'Tanpa Organisasi' }}</strong></p>
+    <h2 class="fw-bold text-center">{{ Auth::user()->name }} Data</h2>
     
     <div class="row mt-4 g-3 text-center">
         <div class="col-md-3">

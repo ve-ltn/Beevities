@@ -11,7 +11,7 @@
     @else
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-center">
-                <thead class="table-dark">
+                <thead class="table-dark text-center">
                     <tr>
                         <th>Invoice Number</th>
                         <th>Buyer Name</th>

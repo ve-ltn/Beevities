@@ -12,22 +12,22 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Nama Event</label>
+                <label class="m-1 text-secondary form-label fw-bold">Nama Event</label>
                 <input type="text" name="title" class="form-control" value="{{ $event->title }}" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Deskripsi</label>
+                <label class=" m-1 text-secondary form-label fw-bold">Deskripsi</label>
                 <textarea name="description" class="form-control" rows="4" required>{{ $event->description }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Tanggal Event</label>
+                <label class="m-1 text-secondary form-label fw-bold">Tanggal Event</label>
                 <input type="datetime-local" name="event_date" class="form-control" value="{{ $event->event_date }}" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Gambar Event</label>
+                <label class="m-1 text-secondary form-label fw-bold">Gambar Event</label>
                 @if($event->image)
                     <div class="mb-2 text-center">
                         <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" width="150" class="rounded shadow">
