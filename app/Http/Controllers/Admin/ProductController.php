@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Organization;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -32,7 +31,8 @@ class ProductController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        $imagePath = $request->hasFile('image') ? $request->file('image')->store('products', 'public') : null;
+        // Convert image to binary data
+        $imageData = $request->hasFile('image') ? file_get_contents($request->file('image')->getRealPath()) : null;
 
         Product::create([
             'name' => $request->name,
@@ -40,7 +40,7 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'category_id' => $request->category_id,
             'organization_id' => $request->organization_id,
-            'image' => $imagePath
+            'image' => $imageData // Store as binary
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
@@ -54,6 +54,8 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $product = Product::findOrFail($id);
+
         $request->validate([
             'name' => 'required|min:5|max:80',
             'price' => 'required|integer',
@@ -63,15 +65,9 @@ class ProductController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        $product = Product::findOrFail($id);
-
-        if($request->hasFile('image')) {
-            if ($product->image && Storage::exists('public/' . $product->image)) {
-                Storage::delete('public/' . $product->image);
-            }
-            $imagePath = $request->file('image')->store('products', 'public');
-        } else {
-            $imagePath = $product->image;
+        // Update image only if a new one is uploaded
+        if ($request->hasFile('image')) {
+            $product->image = file_get_contents($request->file('image')->getRealPath());
         }
 
         $product->update([
@@ -80,7 +76,7 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'category_id' => $request->category_id,
             'organization_id' => $request->organization_id,
-            'image' => $imagePath
+            'image' => $product->image // Store updated image binary
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui.');
@@ -88,9 +84,6 @@ class ProductController extends Controller
 
     public function destroy($id) {
         $product = Product::findOrFail($id);
-        if ($product->image && Storage::exists('public/' . $product->image)) {
-            Storage::delete('public/' . $product->image);
-        }
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');

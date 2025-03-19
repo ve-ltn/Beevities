@@ -111,6 +111,9 @@ Route::middleware(['auth', 'user'])->group(function () {
 Route::middleware(['auth', 'organization_admin'])->group(function () {
     Route::get('/organization_admin/dashboard', [OrganizationAdminController::class, 'dashboard'])
         ->name('organization_admin.dashboard');
+    Route::get('/organization/profile/edit', [OrganizationAdminController::class, 'editProfile'])->name('organization_admin.profile.edit');
+    Route::post('/organization/profile/update', [OrganizationAdminController::class, 'updateProfile'])->name('organization_admin.profile.update');
+    
     // Products
     Route::get('/organization/products', [OrgProductController::class, 'index'])->name('organization_admin.products.index');
     Route::get('/organization/products/create', [OrgProductController::class, 'create'])->name('organization_admin.products.create');

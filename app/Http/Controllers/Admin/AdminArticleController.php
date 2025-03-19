@@ -26,13 +26,14 @@ class AdminArticleController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        $imagePath = $request->hasFile('image') ? $request->file('image')->store('articles', 'public') : null;
+        // Convert image to binary data
+        $imageData = $request->hasFile('image') ? file_get_contents($request->file('image')->getRealPath()) : null;
 
         Article::create([
             'title' => $request->title,
             'organization_id' => $request->organization_id,
             'description' => $request->description,
-            'image' => $imagePath
+            'image' => $imageData // Store as binary
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil ditambahkan.');
@@ -46,12 +47,32 @@ class AdminArticleController extends Controller
 
     public function update(Request $request, $id) {
         $article = Article::findOrFail($id);
-        $article->update($request->all());
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'organization_id' => 'required|exists:organizations,id',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        // Update image only if a new one is uploaded
+        if ($request->hasFile('image')) {
+            $article->image = file_get_contents($request->file('image')->getRealPath());
+        }
+
+        $article->update([
+            'title' => $request->title,
+            'organization_id' => $request->organization_id,
+            'description' => $request->description,
+            'image' => $article->image // Store updated image binary
+        ]);
+
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }
 
     public function destroy($id) {
-        Article::findOrFail($id)->delete();
+        $article = Article::findOrFail($id);
+        $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus.');
     }
 }

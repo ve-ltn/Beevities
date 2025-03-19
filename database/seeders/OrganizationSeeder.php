@@ -18,6 +18,7 @@ class OrganizationSeeder extends Seeder
             'phone' => '081234567899',
             'website' => 'https://bncc.org',
             'banner_image' => 'banners/bncc.jpg',
+            'logo' => 'logos/bncc_logo.jpg',
         ]);
 
         Organization::create([
@@ -27,6 +28,7 @@ class OrganizationSeeder extends Seeder
             'phone' => '081234567900',
             'website' => 'https://student-activity.binus.ac.id/bdm/program/',
             'banner_image' => 'banners/aisociety.jpg',
+            'logo' => 'logos/bdm_logo.jpg',
         ]);
     }
 }

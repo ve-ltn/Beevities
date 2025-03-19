@@ -23,7 +23,7 @@
                     <tr>
                         <td>
                             @if($article->image)
-                                <img src="{{ asset('storage/' . $article->image) }}" width="80" class="rounded shadow">
+                                <img src="{{ $article->image }}" width="80" class="rounded shadow">
                             @else
                                 <span class="text-muted">Tidak ada gambar</span>
                             @endif

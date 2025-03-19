@@ -23,7 +23,7 @@
             <label class="m-1 text-secondary form-label fw-bold">Gambar Artikel</label>
             @if($article->image)
                 <div class="mb-2">
-                    <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" width="150" class="rounded shadow">
+                    <img src="{{ $article->image }}" alt="{{ $article->title }}" width="150" class="rounded shadow">
                 </div>
             @endif
             <input type="file" name="image" class="form-control">

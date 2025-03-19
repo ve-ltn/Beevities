@@ -30,7 +30,7 @@
                 <label class="m-1 text-secondary form-label fw-bold">Gambar Event</label>
                 @if($event->image)
                     <div class="mb-2 text-center">
-                        <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" width="150" class="rounded shadow">
+                        <img src="{{ $event->image }}" alt="{{ $event->title }}" width="150" class="rounded shadow">
                     </div>
                 @endif
                 <input type="file" name="image" class="form-control">

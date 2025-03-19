@@ -41,7 +41,7 @@
                 <label class="m-1 text-secondary form-label fw-bold">Current Image</label>
                 @if($product->image)
                     <br>
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="rounded shadow" style="width: 150px; height: auto;">
+                    <img src="{{ $product->image }}" alt="Product Image" class="rounded shadow" style="width: 150px; height: auto;">
                     <br>
                 @else
                     <p class="text-muted">No image available</p>

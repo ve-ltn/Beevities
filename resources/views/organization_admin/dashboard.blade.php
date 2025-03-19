@@ -5,6 +5,9 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="fw-bold text-center">{{ Auth::user()->name }} Data</h2>
+    <div class="mb-4">
+        <a href="{{ route('organization_admin.profile.edit') }}" class="btn btn-primary">Edit Profil Organisasi</a>
+    </div>
     
     <div class="row mt-4 g-3 text-center">
         <div class="col-md-3">

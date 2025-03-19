@@ -24,7 +24,7 @@
                     <tr>
                         <td>
                             @if($event->image)
-                                <img src="{{ asset('storage/' . $event->image) }}" width="80" class="rounded shadow">
+                                <img src="{{ $event->image }}" width="80" class="rounded shadow">
                             @else
                                 <span class="text-muted">Tidak ada gambar</span>
                             @endif

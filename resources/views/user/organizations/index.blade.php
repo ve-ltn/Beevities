@@ -16,11 +16,14 @@
         @forelse($organizations as $organization)
             <div class="col-md-4 mb-4 organization-item">
                 <div class="card shadow-sm border-0">
-                    @if($organization->banner_image)
-                        <img src="{{ asset('storage/' . $organization->banner_image) }}" class="card-img-top" alt="{{ $organization->name }}" style="height: 180px; object-fit: cover; border-radius: 10px 10px 0 0;">
-                    @else
-                        <img src="{{ asset('placeholder.png') }}" class="card-img-top" alt="Placeholder" style="height: 180px; object-fit: cover; border-radius: 10px 10px 0 0;">
-                    @endif
+                @if($organization->logo)
+                    <img src="{{ $organization->logo }}" alt="Logo" style="width: 100px; height: 100px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('placeholder.png') }}" class="card-img-top" alt="Placeholder" style="height: 180px; object-fit: cover; border-radius: 10px 10px 0 0;">
+                @endif
+
+
+
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">{{ $organization->name }}</h5>
                         <p class="card-text text-muted">{{ Str::limit($organization->description, 80) }}</p>

@@ -30,13 +30,14 @@ class ArticleController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        $imagePath = $request->file('image') ? $request->file('image')->store('articles', 'public') : null;
+        // Convert image to binary data
+        $imageData = $request->hasFile('image') ? file_get_contents($request->file('image')->getRealPath()) : null;
 
         Article::create([
             'organization_id' => Auth::user()->organization_id,
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imagePath
+            'image' => $imageData // Store as binary
         ]);
 
         return redirect()->route('organization_admin.articles.index')->with('success', 'Artikel berhasil ditambahkan.');
@@ -61,17 +62,16 @@ class ArticleController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
+        // ✅ Prepare form fields except image
+        $updateData = $request->except(['image']);
+
+        // ✅ Update image if a new one is uploaded
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('articles', 'public');
-        } else {
-            $imagePath = $article->image;
+            $updateData['image'] = file_get_contents($request->file('image')->getRealPath());
         }
 
-        $article->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $imagePath
-        ]);
+        // ✅ Update event with the new data
+        $article->update($updateData);
 
         return redirect()->route('organization_admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }

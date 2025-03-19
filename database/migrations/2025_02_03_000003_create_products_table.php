@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('stock');
-            $table->string('image')->nullable();
+            $table->binary('image')->nullable();
             $table->timestamps();
         
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
