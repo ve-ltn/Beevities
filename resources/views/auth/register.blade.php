@@ -30,7 +30,7 @@
             align-items: center;
             margin-right: 50px;
             padding: 20px;
-            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: -6px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         form {
