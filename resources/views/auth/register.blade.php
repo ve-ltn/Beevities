@@ -140,6 +140,7 @@
                     @enderror
                 </div>
 
+                <input type="hidden" name="role" value="0">
                 <button type="submit">Register</button>
                 <a href="{{ route('login') }}">Back</a>
             </form>
