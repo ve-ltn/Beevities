@@ -40,7 +40,7 @@
         @foreach ($organization->articles as $article)
             <div class="card shadow-sm" style="min-width: 300px;">
                 @if($article->image)
-                    <img src="data:image/jpeg;base64,{{ base64_encode($article->image) }}" class="card-img-top" alt="{{ $article->title }}" style="height: 150px; object-fit: cover;">
+                    <img src="{{ $article->image }}" class="card-img-top" alt="{{ $article->title }}" style="height: 150px; object-fit: cover;">
                 @else
                     <img src="{{ asset('placeholder.png') }}" class="card-img-top" alt="Placeholder" style="height: 150px; object-fit: cover;">
                 @endif
