@@ -40,7 +40,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function registerForm()
+    public function registerForm(): mixed
     {
         $organizations = Organization::all(); // Fetch organizations for org admin registration
         return view('auth.register', compact('organizations'));
@@ -52,7 +52,7 @@ class AuthController extends Controller
             'name' => 'required|string|min:3|max:40',
             'email' => 'required|email|regex:/@gmail\.com$/|unique:users,email',
             'password' => 'required|confirmed|min:6|max:12',
-            'number' => 'required|regex:/^08\d{8,13}$/',
+            // 'number' => 'required|regex:/^08\d{8,13}$/',
             'role' => 'required|integer|in:0,2', // Ensure only user (0) or organization admin (2) can register
             'organization_id' => 'nullable|exists:organizations,id', // Only required for role = 2
         ], [
@@ -64,8 +64,8 @@ class AuthController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
             'password.min' => 'Password minimal 6 karakter.',
             'password.max' => 'Password maksimal 12 karakter.',
-            'number.required' => 'Nomor HP harus diisi.',
-            'number.regex' => 'Nomor HP harus diawali dengan 08.',
+            // 'number.required' => 'Nomor HP harus diisi.',
+            // 'number.regex' => 'Nomor HP harus diawali dengan 08.',
             'role.required' => 'Peran harus ditentukan.',
             'organization_id.exists' => 'Organisasi tidak valid.',
         ]);
@@ -74,7 +74,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'number' => $request->number,
+            // 'number' => $request->number,
             'role' => $request->role,
             'organization_id' => $request->role == 2 ? $request->organization_id : null, // Assign only if role = 2
         ]);

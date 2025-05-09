@@ -139,6 +139,12 @@
                 @enderror
 
                 <input type="hidden" name="role" value="0">
+                <label for="password_confirmation">konfirmasi password</label>
+                <input type="password" name="password_confirmation" required>
+                @error('password_confirmation')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
+
                 <button type="submit">Sign Up</button>
             </form>
         </div>
